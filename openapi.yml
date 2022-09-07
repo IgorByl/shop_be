@@ -1,0 +1,153 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Product API
+  description: My shop products API
+
+servers:
+  - url: http://127.0.0.1:3000/dev/v1
+
+paths:
+  /product-api/product:
+    get:
+      description: Fetch product entries
+      responses:
+        '200':
+          description: Successfully fetch product entries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfProducts'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      tags:
+        - Products
+
+    post:
+      description: Create a new product entry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRequestProductBody'
+      responses:
+        '201':
+          description: Successfully created the new product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/InvalidRequest'
+        '409':
+          $ref: '#/components/responses/ConflictResource'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      tags:
+        - Products
+
+  /product-api/product/{Id}:
+    get:
+      description: Fetch the product entry
+      parameters:
+        - name: Id
+          in: path
+          required: true
+          description: Identifier of the product entry
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully fetch the product entry
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/InvalidRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      tags:
+        - Products
+
+components:
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
+
+    InvalidRequest:
+      description: Invalid request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
+
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
+
+    ConflictResource:
+      description: The request could not be completed due to a conflict
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string
+
+  schemas:
+    Product:
+      type: object
+      required:
+        - id
+        - description
+        - price
+        - title
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        price:
+          type: integer
+        title:
+          type: string
+
+    ArrayOfProducts:
+      type: object
+      properties:
+        Data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+
+    CreateRequestProductBody:
+      type: object
+      required:
+        - price
+        - title
+      properties:
+        price:
+          type: integer
+        title:
+          type: string
