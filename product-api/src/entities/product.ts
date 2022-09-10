@@ -39,11 +39,17 @@ export class Product {
   @Length(0, 255)
   title: string;
 
+  @Column({ name: 'count' })
+  @IsInt()
+  @Min(0)
+  count: number;
+
   private constructor() {
     this.id = null;
     this.description = null;
     this.price = null;
     this.title = null;
+    this.count = null;
   }
 
   /**
@@ -61,9 +67,6 @@ export class Product {
     entity.mergeWithSourceData(sourceData);
 
     entity.id = uuid();
-
-    // eslint-disable-next-line no-console
-    console.log('entity:   ', entity);
 
     await entity.validateEntity(skipMissingProperties);
 
