@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  version: 1.0.0
+  version: 1.0.1
   title: Product API
   description: My shop products API
 
@@ -123,6 +123,7 @@ components:
         - description
         - price
         - title
+        - count
       properties:
         id:
           type: string
@@ -132,6 +133,8 @@ components:
           type: integer
         title:
           type: string
+        count:
+          type: integer
 
     ArrayOfProducts:
       type: object

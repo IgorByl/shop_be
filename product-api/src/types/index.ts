@@ -1,4 +1,4 @@
-import { ProductService } from 'src/services';
+import { ProductService } from '../services';
 import { LambdaLoggerService } from '@libs/logger';
 import { LambdaGateway } from '@libs/types';
 import { APIGatewayProxyEvent } from 'aws-lambda';
@@ -9,6 +9,7 @@ export interface ProductDTO {
   description?: string;
   price: number;
   title: string;
+  count: number;
 }
 
 export type ProductResult = Required<ProductDTO>;

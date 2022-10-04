@@ -19,16 +19,28 @@ const serverlessConfiguration: AWS = {
     stage: 'dev',
     region: 'eu-central-1',
     profile: 'js-cc4',
+    environment: {
+      DATABASE_STACK: 'ihar-bulaty-product-database-dev'
+    },
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,
     },
     lambdaHashingVersion: '20201221',
     iam: {
-      role: 'arn:aws:iam::398158581759:role/BasicLambdaExecutionRole',
+      role: {
+        permissionsBoundary: 'arn:aws:iam::${aws:accountId}:policy/eo_role_boundary',
+        statements: [{
+          Effect: 'Allow',
+          Action: ['dynamodb:Query', 'dynamodb:Scan', 'dynamodb:PutItem', 'dynamodb:UpdateItem', 'dynamodb:DeleteItem'],
+          Resource: {
+            "Fn::ImportValue": '${self:provider.environment.DATABASE_STACK}',
+          }
+        }]
+      },
     },
   },
-  package: { individually: true },
+  package: { excludeDevDependencies: true },
   functions: microserviceConfig,
 };
 
