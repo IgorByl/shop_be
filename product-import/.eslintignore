@@ -1,0 +1,12 @@
+node_modules/*
+./node_modules/**
+**/node_modules/**
+
+coverage
+ci
+assets
+
+**/*.js
+*mock.ts
+*spec.ts
+*.yml
