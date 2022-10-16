@@ -5,6 +5,7 @@ import { handlerPath } from '@libs/helpers';
 import { getProductConfig } from '@functions/getProduct';
 import { getProductsConfig } from '@functions/getProducts';
 import { createProductConfig } from '@functions/createProduct';
+import { catalogsProductsConfig } from '@functions/catalogProducts'
 
 export const microserviceConfig: MicroserviceConfig = {
   /** Products' scope */
@@ -23,4 +24,9 @@ export const microserviceConfig: MicroserviceConfig = {
     handler: `${handlerPath(__dirname)}/microservice.createProduct`,
     ...createProductConfig,
   },
+
+  catalogProducts: {
+    handler: `${handlerPath(__dirname)}/microservice.catalogProducts`,
+    ...catalogsProductsConfig,
+  }
 };

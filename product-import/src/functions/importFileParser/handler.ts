@@ -1,7 +1,8 @@
 import { S3Handler, S3Event } from 'aws-lambda';
 import { InternalServerError } from '@libs/errors';
+import { FileParserLambda } from 'src/types';
 
-export const importFileParserLambda: any =
+export const importFileParserLambda: FileParserLambda =
   (dataImportService, logger): S3Handler =>
   async (event: S3Event, _context) => {
     try {

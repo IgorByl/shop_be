@@ -2,11 +2,24 @@ import { LambdaLoggerService, LogLevel } from '@libs/logger';
 import { applyJsonMiddlewares } from '@libs/middy';
 import { importProductsFileLambda } from '@functions/importProductsFile';
 import { importFileParserLambda } from '@functions/importFileParser';
-import { S3 } from 'aws-sdk';
+import { S3, SQS } from 'aws-sdk';
 import { StorageService, DataImportService } from './services';
-import { S3_BUCKET_NAME } from '@constants';
+import { S3_BUCKET_NAME, APPLICATION_REGION } from '@constants';
+import { SQSService } from './services/sqs';
 
-const logger = new LambdaLoggerService({ logLevel: LogLevel.INFO });
+const sqsConfig: Partial<SQS.SendMessageRequest> = {
+  QueueUrl: process.env.SQS_URL,
+  MessageGroupId: process.env.SQS_MESSAGE_GROUP_ID,
+};
+
+const sqs = new SQS({
+  apiVersion: '2012-11-05',
+  region: APPLICATION_REGION,
+});
+
+const logger: LambdaLoggerService = new LambdaLoggerService({ logLevel: LogLevel.INFO });
+
+const sqsService = new SQSService(logger, sqs, sqsConfig);
 
 const s3Config: Partial<S3.ClientConfiguration> = {
   s3ForcePathStyle: true,
@@ -19,6 +32,7 @@ const storageServiceConfig = {
   storage,
   logger,
   bucketName: S3_BUCKET_NAME,
+  sqsService,
 };
 
 const storageService = new StorageService(storageServiceConfig);
