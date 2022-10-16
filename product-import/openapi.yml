@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Product Import
+  description: My shop products import
+
+servers:
+  - url: http://127.0.0.1:3000/dev/v1
+
+paths:
+  /product-import/import:
+    get:
+      description: Start product's file import
+      parameters:
+        - name: name
+          in: query
+          required: true
+          description: Import file name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully import of file with products
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      tags:
+        - Import
+
+components:
+  responses:
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errorMessage:
+                type: string

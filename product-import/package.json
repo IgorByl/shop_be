@@ -1,0 +1,74 @@
+{
+  "name": "product-import",
+  "version": "0.0.1",
+  "description": "product-import service",
+  "main": "serverless.ts",
+  "scripts": {
+    "test": "jest --coverage",
+    "build": "serverless package",
+    "offline": "serverless offline",
+    "deploy": "serverless deploy",
+    "remove": "serverless remove",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "prettier": "prettier --write --ignore-unknown .",
+    "check-types": "tsc --noemit"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run check-types && npm run test"
+    }
+  },
+  "lint-staged": {
+    "src/**/*[j|t]s": [
+      "eslint",
+      "prettier --write --ignore-unknown"
+    ]
+  },
+  "engines": {
+    "node": ">=14.16.0",
+    "npm": ">=7.0.0"
+  },
+  "dependencies": {
+    "@middy/core": "^1.5.2",
+    "@middy/do-not-wait-for-empty-event-loop": "^2.5.7",
+    "class-validator": "^0.13.1",
+    "csv-parser": "^3.0.0",
+    "typeorm": "^0.3.7",
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "aws-sdk": "2.1105.0",
+    "@serverless/typescript": "^2.23.0",
+    "@types/aws-lambda": "^8.10.71",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^14.14.25",
+    "@typescript-eslint/eslint-plugin": "^4.28.4",
+    "@typescript-eslint/parser": "^4.28.4",
+    "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-recommended": "^4.1.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^4.3.0",
+    "jest": "^27.0.5",
+    "json-schema-to-ts": "^1.5.0",
+    "lint-staged": "^11.0.0",
+    "prettier": "^2.3.2",
+    "serverless": "^3.22.0",
+    "serverless-offline": "^9.2.5",
+    "serverless-webpack": "^5.8.0",
+    "source-map-support": "^0.5.19",
+    "ts-jest": "^27.0.3",
+    "ts-loader": "^8.0.15",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^3.9.0",
+    "tsconfig-paths-webpack-plugin": "^3.3.0",
+    "typescript": "^4.1.3",
+    "webpack": "^5.20.2",
+    "webpack-node-externals": "^2.5.2"
+  },
+  "author": "",
+  "license": ""
+}
