@@ -33,10 +33,7 @@ export const getProduct = applyJsonMiddlewares(getProductLambda(productService, 
 
 export const getProducts = applyJsonMiddlewares(getProductsLambda(productService, logger), logger);
 
-export const catalogProducts = applyJsonMiddlewares(
-  catalogProductsLambda(notificationService, logger),
-  logger
-);
+export const catalogProducts = catalogProductsLambda(notificationService, logger);
 
 process.on('unhandledRejection', (error: Error) => {
   logger.error({ Exp: error.message, Stack: error.stack, Msg: 'unhandledRejection' });

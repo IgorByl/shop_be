@@ -1,18 +1,17 @@
+import { LambdaLoggerService } from '@libs/logger';
 import { SNS } from 'aws-sdk';
-import { Logger } from 'winston';
 
 export class NotificationService {
   constructor(
     private readonly _sns: SNS,
     private readonly _topicArn: string,
-    private readonly _logger: Logger
+    private readonly _logger: LambdaLoggerService
   ) {}
 
   async sendNotification(message: string): Promise<void> {
     try {
-      this._logger.log({
-        level: 'info',
-        message: `Sending the message with product: ${message}`,
+      this._logger.info({
+        Msg: `Sending the message with product: ${message}`,
       });
 
       const {
@@ -29,9 +28,8 @@ export class NotificationService {
         throw error;
       }
     } catch (error) {
-      this._logger.log({
-        level: 'error',
-        message: `Sending the message with product: ${message} is failed with error 
+      this._logger.info({
+        Msg: `Sending the message with product: ${message} is failed with error 
           ${(error as Error).message} 
           ${(error as Error).stack}`,
       });
