@@ -1,0 +1,26 @@
+# package directories
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# esbuild directories
+.esbuild
+
+.DS_Store
+node_modules
+
+.history
+.npmrc
+.vscode/*
+
+.serverless
+
+coverage
+test-report.xml
+.scannerwork
+development.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local

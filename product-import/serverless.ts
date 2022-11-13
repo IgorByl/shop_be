@@ -37,6 +37,7 @@ const serverlessConfiguration: AWS = {
         'Fn::ImportValue': '${self:provider.environment.PRODUCT_API_SQS_ARN_IMPORT_KEY}',
       },
       SQS_MESSAGE_GROUP_ID: 'SQS_MESSAGE_GROUP_ID',
+      LAMBDA_AUTHORIZER_ARN: 'arn:aws:lambda:eu-central-1:398158581759:function:ihar-bulaty-product-authorization-basicAuthorizer',
     },
     iam: {
       role: {
