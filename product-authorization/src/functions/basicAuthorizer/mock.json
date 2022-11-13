@@ -1,0 +1,70 @@
+
+{
+    "type": "REQUEST",
+    "methodArn": "arn:aws:api:us-east-1:123:123/live/POST/v1/api",
+    "resource": "/v1/sap-api/scenarios",
+    "path": "/v1/sap-api/scenarios",
+    "httpMethod": "POST",
+    "headers": {
+        "Accept": "*/*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Cache-Control": "no-cache",
+        "Cookie": "IgorByl=VEVTVF9QQVNTV09SRA==",
+        "Host": "123.api.us-east-1.amazonaws.com",
+        "Postman-Token": "1b4612db-d8c3-4da2-957b-cb445698c217",
+        "User-Agent": "PostmanRuntime/7.29.2",
+        "X-Amzn-Trace-Id": "Root=1-62fa4378-1143d1d951fb5b83154188e0",
+        "X-Forwarded-For": "10.10.10.10",
+        "X-Forwarded-Port": "443",
+        "X-Forwarded-Proto": "https"
+    },
+    "multiValueHeaders": {
+        "Accept": [
+            "*/*"
+        ],
+        "Accept-Encoding": [
+            "gzip, deflate, br"
+        ],
+        "Cache-Control": [
+            "no-cache"
+        ],
+        "X-Forwarded-Port": [
+            "443"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ]
+    },
+    "pathParameters": {},
+    "stageVariables": {},
+    "requestContext": {
+        "resourceId": "9o527d1",
+        "resourcePath": "/v1/api",
+        "httpMethod": "POST",
+        "extendedRequestId": "W5961FREIAMFbbw=",
+        "requestTime": "15/Aug/2022:13:00:40 +0000",
+        "path": "/live/v1/api",
+        "accountId": "12312312321",
+        "protocol": "HTTP/1.1",
+        "stage": "live",
+        "domainPrefix": "123",
+        "requestTimeEpoch": 166050395,
+        "requestId": "a93ebcc4-05ee-499f-ad19-493fa976cdc4",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "accountId": null,
+            "cognitoIdentityId": null,
+            "caller": null,
+            "sourceIp": "10.10.10.10",
+            "principalOrgId": null,
+            "accessKey": null,
+            "cognitoAuthenticationType": null,
+            "cognitoAuthenticationProvider": null,
+            "userArn": null,
+            "userAgent": "PostmanRuntime/7.29.2",
+            "user": null
+        },
+        "domainName": "123.api.us-east-1.amazonaws.com",
+        "apiId": "123"
+    }
+  }

@@ -7,6 +7,10 @@ export const importProductsFileConfig: LambdaConfig = {
       http: {
         method: 'get',
         path: `/${VERSION}/${SERVICE_NAME}/import`,
+        authorizer: {
+          arn: '${self:provider.environment.LAMBDA_AUTHORIZER_ARN}',
+          type: 'request',
+        },
       },
     },
   ],
