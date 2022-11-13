@@ -12,6 +12,7 @@ const serverlessConfiguration: AWS = {
       },
     },
     bucketName: 'ihar-bulaty-shop-products',
+    productApiStack: 'ihar-bulaty-product-api-dev',
   },
   plugins: ['serverless-webpack', 'serverless-offline'],
   provider: {
@@ -27,6 +28,15 @@ const serverlessConfiguration: AWS = {
     lambdaHashingVersion: '20201221',
     environment: {
       S3_BUCKET_NAME: '${self:custom.bucketName}',
+      PRODUCT_API_SQS_ARN_IMPORT_KEY: '${self:custom.productApiStack}-ProcessSQSArn',
+      PRODUCT_API_SQS_URL_IMPORT_KEY: '${self:custom.productApiStack}-ProcessSQSUrl',
+      SQS_URL: {
+        'Fn::ImportValue': '${self:provider.environment.PRODUCT_API_SQS_URL_IMPORT_KEY}',
+      },
+      SQS_ARN: {
+        'Fn::ImportValue': '${self:provider.environment.PRODUCT_API_SQS_ARN_IMPORT_KEY}',
+      },
+      SQS_MESSAGE_GROUP_ID: 'SQS_MESSAGE_GROUP_ID',
     },
     iam: {
       role: {
@@ -41,6 +51,11 @@ const serverlessConfiguration: AWS = {
             Effect: 'Allow',
             Action: ['s3:*'],
             Resource: 'arn:aws:s3:::${self:custom.bucketName}/*',
+          },
+          {
+            Effect: 'Allow',
+            Action: ['sqs:*'],
+            Resource: '${self:provider.environment.SQS_ARN}',
           },
         ],
       },

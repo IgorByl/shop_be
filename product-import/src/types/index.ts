@@ -1,7 +1,8 @@
 import { LambdaLoggerService } from '@libs/logger';
 import { LambdaGateway } from '@libs/types';
+import { S3Handler } from 'aws-lambda';
 import { S3, Request, AWSError } from 'aws-sdk';
-import { StorageService, DataImportService } from '../services';
+import { StorageService, DataImportService, SQSService } from '../services';
 
 export type ImportProductsFileLambda<T, K, R> = (
   dataImportService: DataImportService,
@@ -23,9 +24,15 @@ export interface StorageServiceConfig {
   logger: LambdaLoggerService;
   storage: S3;
   bucketName: string;
+  sqsService: SQSService;
 }
 
 export interface DataImportServiceConfig {
   logger: LambdaLoggerService;
   storageService: StorageService;
 }
+
+export type FileParserLambda = (
+  dataImportService: DataImportService,
+  logger: LambdaLoggerService
+) => S3Handler;

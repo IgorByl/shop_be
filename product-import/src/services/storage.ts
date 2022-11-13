@@ -3,16 +3,19 @@ import { Logger } from '@libs/logger';
 import { AWSError, Request, S3 } from 'aws-sdk';
 import { StorageServiceConfig, FileStorage } from '../types';
 import csv from 'csv-parser';
+import { SQSService } from './sqs';
 
 export class StorageService implements FileStorage {
   private readonly _s3: S3;
   private readonly _bucketName: string;
   private readonly _logger: Logger;
+  private readonly _sqsService: SQSService;
 
   constructor(config: StorageServiceConfig) {
     this._s3 = config.storage;
     this._logger = config.logger;
     this._bucketName = config.bucketName;
+    this._sqsService = config.sqsService;
   }
 
   /**
@@ -34,6 +37,8 @@ export class StorageService implements FileStorage {
           this._logger.info({
             Msg: `${JSON.stringify(data)}`,
           });
+
+          await this._sqsService.sendMessage(data);
         })
         .on('end', () => {
           this._logger.info({
@@ -132,9 +137,7 @@ export class StorageService implements FileStorage {
 
       return signedURL;
     } catch (error) {
-      throw new ServiceError(
-        `Generating signed url to the file ${filePath} is failed: ${error}`
-      );
+      throw new ServiceError(`Generating signed url to the file ${filePath} is failed: ${error}`);
     }
   }
 }

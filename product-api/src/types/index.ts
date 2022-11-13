@@ -1,7 +1,7 @@
-import { ProductService } from '../services';
+import { NotificationService, ProductService } from '../services';
 import { LambdaLoggerService } from '@libs/logger';
 import { LambdaGateway } from '@libs/types';
-import { APIGatewayProxyEvent } from 'aws-lambda';
+import { APIGatewayProxyEvent, SQSHandler } from 'aws-lambda';
 import { v4 as uuid } from 'uuid';
 
 export interface ProductDTO {
@@ -24,3 +24,8 @@ export type APIGatewayEvent<T> = APIGatewayProxyEvent & {
 };
 
 export type PathParameters = { Id: string };
+
+export type CatalogProductsLambda = (
+  notificationService: NotificationService,
+  logger: LambdaLoggerService
+) => SQSHandler;
